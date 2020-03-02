@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
-chuj
-
 unsigned int ns[] = { 10, /* TODO: fill in "n" i.e. instance sizes */ };
 
 void fill_increasing(int *t, unsigned int n) {
