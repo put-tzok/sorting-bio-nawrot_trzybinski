@@ -105,14 +105,17 @@ zipped = [(fill_random, is_random),
           (fill_vshape, is_vshape)]
 
 # main
-for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
-  for fill_function, check_function in zipped:
-    data = fill_function(100)
-    check_function(data)
+for n in [50, 100, 200, 400, 800, 2000, 5000, 10000, 20000, 50000]:
+  print(f'{n}:')
+  for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
+    for fill_function, check_function in zipped:
 
-    start = default_timer()
-    sort_function(data)
-    end = default_timer()
+      data = fill_function(n)
+      check_function(data)
 
-    is_sorted(data)
-    print(f'{sort_function.__name__}\t{fill_function.__name__} {end - start:.8}')
+      start = default_timer()
+      sort_function(data)
+      end = default_timer()
+
+      is_sorted(data)
+      print(f'{sort_function.__name__}\t{fill_function.__name__} {end - start:.8}')
