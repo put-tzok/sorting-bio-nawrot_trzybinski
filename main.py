@@ -1,23 +1,26 @@
 from time import time
-from random import randrange
+from random import sample, randrange
 
-
-spread = 100
+from sys import setrecursionlimit
+setrecursionlimit(10000)
 
 # fill functions
 def fill_random(n):
-  return [randrange(spread) for _ in range(n)]
+  return sample(range(10 * n), n)
 
 def fill_increasing(n):
-  return sorted([randrange(spread) for _ in range(n)])
+  return sorted(fill_random(n))
 
 def fill_decreasing(n):
-  return sorted([randrange(spread) for _ in range(n)], reverse=True)
+  return sorted(fill_random(n), reverse=True)
 
 def fill_vshape(n):
   pass
 
 # check functions
+def is_random(data):
+  pass
+
 def is_increasing(data):
   assert all(i < j for i, j in zip(data, data[1:]))
 
@@ -35,7 +38,6 @@ def selection_sort(data):
       if data[selection_index] > data[inner_index]:
         selection_index = inner_index
     data[index], data[selection_index] = data[selection_index], data[index]
-  return data
 
 def insertion_sort(data):
   for index, value in enumerate(data[1:]):
@@ -43,7 +45,6 @@ def insertion_sort(data):
       data[index + 1] = data[index] 
       index -= 1
     data[index + 1] = value 
-  return data
 
 def partition(data, low, high):
   for inner_index in range(low + 1, high):
@@ -60,9 +61,9 @@ def quick_sort(data, low=None, high=None):
     index = partition(data, low - 1, high)
     quick_sort(data, low, index - 1)
     quick_sort(data, index + 1, high)
-  return data
 
-def heapify(data, high, low): 
+def heapify(data
+, high, low): 
   largest = low
 
   left = 2 * low + 1
@@ -83,20 +84,20 @@ def heap_sort(data):
   for index in range(len(data) - 1, 0, -1):
     data[index], data[0] = data[0], data[index]
     heapify(data, index, 0)
-  return data
+
+zipped = [(fill_random, is_random),
+          (fill_increasing, is_increasing),
+          (fill_decreasing, is_decreasing)]
 
 # main
 for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
-  for fill_function in [fill_random, fill_increasing, fill_decreasing]:
-    data = fill_function(10)
+  for fill_function, check_function in zipped:
+    data = fill_function(1000)
+    check_function(data)
 
     start = time()
-    data = sort_function(data)
+    sort_function(data)
     end = time()
-    print(end - start)
 
-
-
-    if data:
-      is_sorted(data)
-    print(f'{sort_function.__name__}\t{fill_function.__name__} {end - start:.8} {data}')
+    is_sorted(data)
+    print(f'{sort_function.__name__}\t{fill_function.__name__} {end - start:.8}')
