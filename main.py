@@ -15,7 +15,12 @@ def fill_decreasing(n):
   return sorted(fill_random(n), reverse=True)
 
 def fill_vshape(n):
-  pass
+  data = []
+  for i in range(n, 1, -2):
+    data.append(i)
+  for i in range(1, n, 2):
+    data.append(i)
+  return data
 
 # check functions
 def is_random(data):
@@ -29,6 +34,16 @@ def is_decreasing(data):
 
 def is_sorted(data):
   assert all(i <= j for i, j in zip(data, data[1:]))
+
+def is_vshape(data):
+  begin = 0
+  end = len(data) - 1
+
+  while (end - begin > 1):
+    assert data[begin] > data[end]
+    begin += 1
+    assert data[end] > data[begin]
+    end -=1
 
 # sort functions
 def selection_sort(data):
@@ -86,7 +101,8 @@ def heap_sort(data):
 
 zipped = [(fill_random, is_random),
           (fill_increasing, is_increasing),
-          (fill_decreasing, is_decreasing)]
+          (fill_decreasing, is_decreasing),
+          (fill_vshape, is_vshape)]
 
 # main
 for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
