@@ -111,6 +111,7 @@ for n in [50, 100, 200, 400, 800, 2000, 5000, 10000, 20000, 50000]:
     for fill_function, check_function in zipped:
       data = fill_function(n)
       check_function(data)
+      
       start = default_timer()
       sort_function(data)
       end = default_timer()
