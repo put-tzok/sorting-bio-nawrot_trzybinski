@@ -1,4 +1,4 @@
-from time import time
+from timeit import default_timer
 from random import sample, randrange
 from sys import setrecursionlimit
 
@@ -91,12 +91,12 @@ zipped = [(fill_random, is_random),
 # main
 for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
   for fill_function, check_function in zipped:
-    data = fill_function(1000)
+    data = fill_function(100)
     check_function(data)
 
-    start = time()
+    start = default_timer()
     sort_function(data)
-    end = time()
+    end = default_timer()
 
     is_sorted(data)
-    print(f'{sort_function.__name__}\t{fill_function.__name__} {round((end - start) * 1000, 3)}')
+    print(f'{sort_function.__name__}\t{fill_function.__name__} {end - start:.8}')
