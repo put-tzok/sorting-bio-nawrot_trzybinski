@@ -109,13 +109,12 @@ for n in [50, 100, 200, 400, 800, 2000, 5000, 10000, 20000, 50000]:
   print(f'{n}:')
   for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
     for fill_function, check_function in zipped:
-
       data = fill_function(n)
       check_function(data)
-
+      
       start = default_timer()
       sort_function(data)
       end = default_timer()
-
+      
       is_sorted(data)
       print(f'{sort_function.__name__}\t{fill_function.__name__} {round((end - start) * 1000, 3)}')
