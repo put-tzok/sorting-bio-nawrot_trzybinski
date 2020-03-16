@@ -118,4 +118,4 @@ for n in [50, 100, 200, 400, 800, 2000, 5000, 10000, 20000, 50000]:
       end = default_timer()
 
       is_sorted(data)
-      print(f'{sort_function.__name__}\t{fill_function.__name__} {end - start:.8}')
+      print(f'{sort_function.__name__}\t{fill_function.__name__} {round((end - start) * 1000, 3)}')
