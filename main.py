@@ -69,11 +69,24 @@ def partition(data, low, high):
   data[low + 1], data[high] = data[high], data[low + 1]
   return low + 1
 
+def random_partition(data, low, high):
+  i = randrange(low, high)
+  data[i], data[high] = data[high], data[i]
+  return partition(data, low, high)
+
 def quick_sort(data, low=None, high=None):
   if low is None and high is None:
     return quick_sort(data, 0, len(data) - 1)
   if low < high:
     index = partition(data, low - 1, high)
+    quick_sort(data, low, index - 1)
+    quick_sort(data, index + 1, high)
+
+def random_quick_sort(data, low=None, high=None):
+  if low is None and high is None:
+    return quick_sort(data, 0, len(data) - 1)
+  if low < high:
+    index = random_partition(data, low - 1, high)
     quick_sort(data, low, index - 1)
     quick_sort(data, index + 1, high)
 
@@ -107,7 +120,7 @@ zipped = [(fill_random, is_random),
 # main
 for n in [50, 100, 200, 400, 800, 2000, 5000, 10000, 20000, 50000]:
   print(f'{n}:')
-  for sort_function in [selection_sort, insertion_sort, quick_sort, heap_sort]:
+  for sort_function in [selection_sort, insertion_sort, quick_sort, random_quick_sort, heap_sort]:
     for fill_function, check_function in zipped:
       data = fill_function(n)
       check_function(data)
